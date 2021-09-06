@@ -9,7 +9,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ansible-roles-qa
+  IMAGE_NAME: curium-rocks/ansible-roles-qa
 jobs:
   publish-container:
     runs-on: 'ubuntu-latest'
