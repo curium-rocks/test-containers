@@ -1,0 +1,12 @@
+on:
+  push:
+    branches: ['main']
+    paths:
+      - "ansible-roles-qa/**"
+jobs:
+  publish-container:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ansible-roles-qa:$(date +%s)
