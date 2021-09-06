@@ -9,4 +9,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ansible-roles-qa:$(date +%s)
+      run: docker build ansible-roles-qa --file ansible-roles-qa/Dockerfile --tag ansible-roles-qa:$(date +%s)
