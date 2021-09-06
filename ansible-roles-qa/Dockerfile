@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM jrei:systemd-debian
 RUN apt update && apt install -y software-properties-common
 RUN apt-add-repository ppa:ansible/ansible
 RUN apt update && apt install -y ansible sudo python3-pip git
