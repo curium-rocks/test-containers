@@ -19,7 +19,7 @@ jobs:
       # https://github.com/docker/login-action
     - name: Log into registry ${{ env.REGISTRY }}
       if: github.event_name != 'pull_request'
-      uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+      uses: docker/login-action@25c0ca8bab9893f0962d4ffd043f2b7ab90e9a3f
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
@@ -28,13 +28,13 @@ jobs:
     # https://github.com/docker/metadata-action
     - name: Extract Docker metadata
       id: meta
-      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+      uses: docker/metadata-action@6d43bfb301c5ed182a59cfa3b21916868c62c405
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
     # Build and push Docker image with Buildx (don't push on PR)
     # https://github.com/docker/build-push-action
     - name: Build and push Docker image
-      uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      uses: docker/build-push-action@375f72aff65b645c51f122f04a776df8416b222b
       with:
         context: ansible-roles-qa
         push: ${{ github.event_name != 'pull_request' }}
