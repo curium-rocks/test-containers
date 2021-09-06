@@ -3,6 +3,7 @@ on:
     branches: ['main']
     paths:
       - "ansible-roles-qa/**"
+      - '.github/workflows/ansible-roles.yml'
 jobs:
   publish-container:
     runs-on: 'ubuntu-latest'
