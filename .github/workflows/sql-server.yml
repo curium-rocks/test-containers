@@ -1,0 +1,42 @@
+name: 'SQL Server QA Container'
+on:
+  push:
+    branches: ['main']
+    paths:
+      - "sql-server/**"
+      - '.github/workflows/sql-server.yml'
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: curium-rocks/sql-server
+jobs:
+  publish-container:
+    runs-on: 'ubuntu-latest'
+    steps:
+    - uses: actions/checkout@v2
+    # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+    - name: Log into registry ${{ env.REGISTRY }}
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@25c0ca8bab9893f0962d4ffd043f2b7ab90e9a3f
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    # Extract metadata (tags, labels) for Docker
+    # https://github.com/docker/metadata-action
+    - name: Extract Docker metadata
+      id: meta
+      uses: docker/metadata-action@6d43bfb301c5ed182a59cfa3b21916868c62c405
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+    # Build and push Docker image with Buildx (don't push on PR)
+    # https://github.com/docker/build-push-action
+    - name: Build and push Docker image
+      uses: docker/build-push-action@375f72aff65b645c51f122f04a776df8416b222b
+      with:
+        context: sql-server
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
