@@ -28,7 +28,7 @@ jobs:
     # https://github.com/docker/metadata-action
     - name: Extract Docker metadata
       id: meta
-      uses: docker/metadata-action@09dffb9c1c47d41d5fd15d675fa8b10b8918da82
+      uses: docker/metadata-action@548e2346a9987b56d8a4104fe776321ff8e23440
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
     # Build and push Docker image with Buildx (don't push on PR)
